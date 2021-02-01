@@ -5,9 +5,4 @@
     <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="CefSharp.Common" Version="86.0.241" />
-    <PackageReference Include="CefSharp.WinForms" Version="86.0.241" />
-  </ItemGroup>
-
 </Project>
