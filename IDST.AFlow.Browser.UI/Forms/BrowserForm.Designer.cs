@@ -1,4 +1,4 @@
-namespace IDST.AFlow.Browser.UI
+namespace IDST.AFlow.Browser.UI.Forms
 {
     partial class BrowserForm
     {
@@ -57,6 +57,9 @@ namespace IDST.AFlow.Browser.UI
             this.zoomOutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.currentZoomLevelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.scriptToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+
+            this.workflowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+
             this.isTextInputToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.doesElementWithIDExistToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.listenForButtonClickToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -289,13 +292,21 @@ namespace IDST.AFlow.Browser.UI
             this.currentZoomLevelToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
             this.currentZoomLevelToolStripMenuItem.Text = "Current Zoom Level";
             this.currentZoomLevelToolStripMenuItem.Click += new System.EventHandler(this.CurrentZoomLevelToolStripMenuItemClick);
+
+            this.workflowToolStripMenuItem.Name = "WorkflowToolStripMenuItem";
+            this.workflowToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.workflowToolStripMenuItem.Text = "Test Workflow";
+            this.workflowToolStripMenuItem.Click += new System.EventHandler(this.WorkflowToolStripMenuItemClick);
+
             // 
             // scriptToolStripMenuItem
             // 
             this.scriptToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.isTextInputToolStripMenuItem,
             this.doesElementWithIDExistToolStripMenuItem,
-            this.listenForButtonClickToolStripMenuItem});
+            this.listenForButtonClickToolStripMenuItem,
+            this.workflowToolStripMenuItem
+            });
             this.scriptToolStripMenuItem.Name = "scriptToolStripMenuItem";
             this.scriptToolStripMenuItem.Size = new System.Drawing.Size(49, 20);
             this.scriptToolStripMenuItem.Text = "Script";
@@ -461,5 +472,7 @@ namespace IDST.AFlow.Browser.UI
         private System.Windows.Forms.ToolStripMenuItem loadExtensionsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem javascriptBindingStressTestToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem showDevToolsDockedToolStripMenuItem;
+
+        private System.Windows.Forms.ToolStripMenuItem workflowToolStripMenuItem;
     }
 }

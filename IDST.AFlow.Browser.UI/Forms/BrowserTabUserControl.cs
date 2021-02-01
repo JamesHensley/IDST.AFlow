@@ -11,17 +11,17 @@ using System.Windows.Forms;
 using IDST.AFlow.Browser.Core;
 using IDST.AFlow.Browser.Core.Handlers;
 using IDST.AFlow.Browser.Core.JavascriptBinding;
-using IDST.AFlow.Browser.Core.Handlers;
 using CefSharp.WinForms;
 using CefSharp;
 using IDST.AFlow.Browser.UI.Handlers;
+using IDST.AFlow.Browser.UI.WorkflowHelpers;
 
-namespace IDST.AFlow.Browser.UI
+namespace IDST.AFlow.Browser.UI.Forms
 {
     public partial class BrowserTabUserControl : UserControl
     {
         public IWinFormsWebBrowser Browser { get; private set; }
-        private IntPtr browserHandle;
+        public IntPtr BrowserHandle;
         private ChromeWidgetMessageInterceptor messageInterceptor;
         private bool multiThreadedMessageLoopEnabled;
 
@@ -112,6 +112,8 @@ namespace IDST.AFlow.Browser.UI
             var version = string.Format("Chromium: {0}, CEF: {1}, CefSharp: {2}", Cef.ChromiumVersion, Cef.CefVersion, Cef.CefSharpVersion);
             //Set label directly, don't use DisplayOutput as call would be a NOOP (no valid handle yet).
             outputLabel.Text = version;
+
+            BrowserService.RegisterBrowser(browser);
         }
 
         /// <summary>
@@ -139,7 +141,7 @@ namespace IDST.AFlow.Browser.UI
 
         private void OnBrowserHandleCreated(object sender, EventArgs e)
         {
-            browserHandle = ((ChromiumWebBrowser)Browser).Handle;
+            BrowserHandle = ((ChromiumWebBrowser)Browser).Handle;
         }
 
         private void OnBrowserMouseClick(object sender, MouseEventArgs e)
@@ -282,7 +284,7 @@ namespace IDST.AFlow.Browser.UI
                     while (true)
                     {
                         IntPtr chromeWidgetHostHandle;
-                        if (ChromeWidgetHandleFinder.TryFindHandle(browserHandle, out chromeWidgetHostHandle))
+                        if (ChromeWidgetHandleFinder.TryFindHandle(BrowserHandle, out chromeWidgetHostHandle))
                         {
                             messageInterceptor = new ChromeWidgetMessageInterceptor((Control)Browser, chromeWidgetHostHandle, message =>
                             {

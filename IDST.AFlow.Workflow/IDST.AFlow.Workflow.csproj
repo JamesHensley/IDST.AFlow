@@ -5,4 +5,8 @@
     <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="WorkflowCore" Version="3.3.5" />
+  </ItemGroup>
+
 </Project>

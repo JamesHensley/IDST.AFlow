@@ -9,9 +9,11 @@ using CefSharp;
 using CefSharp.WinForms;
 using IDST.AFlow.Browser.Core;
 using IDST.AFlow.Browser.Core.Handlers;
+using IDST.AFlow.Browser.UI.Forms;
 using IDST.AFlow.Browser.UI.Handlers;
 using IDST.AFlow.Browser.UI.Minimal;
-//using IDST.AFlow.Browser.Core.Minimal;
+using IDST.AFlow.Browser.UI.Workflow.Steps;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace IDST.AFlow.Browser.UI
 {
@@ -20,6 +22,10 @@ namespace IDST.AFlow.Browser.UI
         [STAThread]
         public static int Main(string[] args)
         {
+            IServiceCollection services = new ServiceCollection();
+            services.AddWorkflow();
+            services.AddTransient<HtmlStepNavigate>();
+
             const bool selfHostSubProcess = false;
 
             Cef.EnableHighDPISupport();
@@ -44,7 +50,7 @@ namespace IDST.AFlow.Browser.UI
 #endif
 
                 var settings = new CefSettings();
-                settings.BrowserSubprocessPath = System.IO.Path.GetFullPath("CefSharp.WinForms.Example.exe");
+                settings.BrowserSubprocessPath = System.IO.Path.GetFullPath("IDST.AFlow.Browser.UI.exe");
 
                 Cef.Initialize(settings);
 
@@ -66,7 +72,7 @@ namespace IDST.AFlow.Browser.UI
                 const bool multiThreadedMessageLoop = true;
                 const bool externalMessagePump = false;
 
-                var browser = new BrowserForm(multiThreadedMessageLoop);
+                var browser = new BrowserForm(multiThreadedMessageLoop, services.BuildServiceProvider());
                 //var browser = new SimpleBrowserForm(multiThreadedMessageLoop);
                 //var browser = new TabulationDemoForm();
 

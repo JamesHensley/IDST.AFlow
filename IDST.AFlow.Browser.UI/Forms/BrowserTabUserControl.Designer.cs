@@ -1,4 +1,4 @@
-namespace IDST.AFlow.Browser.UI
+namespace IDST.AFlow.Browser.UI.Forms
 {
     partial class BrowserTabUserControl
     {
@@ -60,7 +60,6 @@ namespace IDST.AFlow.Browser.UI
             // findPreviousButton
             // 
             this.findPreviousButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.findPreviousButton.Image = global::IDST.AFlow.Browser.UI.Properties.Resources.nav_left_green;
             this.findPreviousButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.findPreviousButton.Name = "findPreviousButton";
             this.findPreviousButton.Size = new System.Drawing.Size(23, 22);
@@ -70,7 +69,6 @@ namespace IDST.AFlow.Browser.UI
             // findNextButton
             // 
             this.findNextButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.findNextButton.Image = global::IDST.AFlow.Browser.UI.Properties.Resources.nav_right_green;
             this.findNextButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.findNextButton.Name = "findNextButton";
             this.findNextButton.Size = new System.Drawing.Size(23, 22);
@@ -81,7 +79,7 @@ namespace IDST.AFlow.Browser.UI
             // 
             this.findCloseButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.findCloseButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.findCloseButton.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold);
+            this.findCloseButton.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.findCloseButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.findCloseButton.Name = "findCloseButton";
             this.findCloseButton.Size = new System.Drawing.Size(23, 22);
@@ -92,18 +90,18 @@ namespace IDST.AFlow.Browser.UI
             // 
             this.statusLabel.AutoSize = true;
             this.statusLabel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.statusLabel.Location = new System.Drawing.Point(0, 464);
+            this.statusLabel.Location = new System.Drawing.Point(0, 460);
             this.statusLabel.Name = "statusLabel";
-            this.statusLabel.Size = new System.Drawing.Size(0, 13);
+            this.statusLabel.Size = new System.Drawing.Size(0, 15);
             this.statusLabel.TabIndex = 1;
             // 
             // outputLabel
             // 
             this.outputLabel.AutoSize = true;
             this.outputLabel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.outputLabel.Location = new System.Drawing.Point(0, 477);
+            this.outputLabel.Location = new System.Drawing.Point(0, 475);
             this.outputLabel.Name = "outputLabel";
-            this.outputLabel.Size = new System.Drawing.Size(0, 13);
+            this.outputLabel.Size = new System.Drawing.Size(0, 15);
             this.outputLabel.TabIndex = 0;
             // 
             // toolStrip1
@@ -125,20 +123,18 @@ namespace IDST.AFlow.Browser.UI
             // backButton
             // 
             this.backButton.Enabled = false;
-            this.backButton.Image = global::IDST.AFlow.Browser.UI.Properties.Resources.nav_left_green;
             this.backButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.backButton.Name = "backButton";
-            this.backButton.Size = new System.Drawing.Size(52, 22);
+            this.backButton.Size = new System.Drawing.Size(36, 22);
             this.backButton.Text = "Back";
             this.backButton.Click += new System.EventHandler(this.BackButtonClick);
             // 
             // forwardButton
             // 
             this.forwardButton.Enabled = false;
-            this.forwardButton.Image = global::IDST.AFlow.Browser.UI.Properties.Resources.nav_right_green;
             this.forwardButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.forwardButton.Name = "forwardButton";
-            this.forwardButton.Size = new System.Drawing.Size(70, 22);
+            this.forwardButton.Size = new System.Drawing.Size(54, 22);
             this.forwardButton.Text = "Forward";
             this.forwardButton.Click += new System.EventHandler(this.ForwardButtonClick);
             // 
@@ -151,10 +147,9 @@ namespace IDST.AFlow.Browser.UI
             // 
             // goButton
             // 
-            this.goButton.Image = global::IDST.AFlow.Browser.UI.Properties.Resources.nav_plain_green;
             this.goButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.goButton.Name = "goButton";
-            this.goButton.Size = new System.Drawing.Size(42, 22);
+            this.goButton.Size = new System.Drawing.Size(26, 22);
             this.goButton.Text = "Go";
             this.goButton.Click += new System.EventHandler(this.GoButtonClick);
             // 
@@ -168,7 +163,7 @@ namespace IDST.AFlow.Browser.UI
             // 
             this.browserSplitContainer.Panel1.Controls.Add(this.browserPanel);
             this.browserSplitContainer.Panel2Collapsed = true;
-            this.browserSplitContainer.Size = new System.Drawing.Size(730, 439);
+            this.browserSplitContainer.Size = new System.Drawing.Size(730, 435);
             this.browserSplitContainer.SplitterDistance = 481;
             this.browserSplitContainer.TabIndex = 2;
             // 
@@ -177,7 +172,7 @@ namespace IDST.AFlow.Browser.UI
             this.browserPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.browserPanel.Location = new System.Drawing.Point(0, 0);
             this.browserPanel.Name = "browserPanel";
-            this.browserPanel.Size = new System.Drawing.Size(730, 439);
+            this.browserPanel.Size = new System.Drawing.Size(730, 435);
             this.browserPanel.TabIndex = 3;
             // 
             // BrowserTabUserControl

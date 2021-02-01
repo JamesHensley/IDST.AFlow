@@ -12,8 +12,8 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <RootNamespace>CefSharp.Example</RootNamespace>
-    <AssemblyName>CefSharp.Example</AssemblyName>
+    <RootNamespace>IDST.AFlow.Browser.Core</RootNamespace>
+    <AssemblyName>IDST.AFlow.Browser.Core</AssemblyName>
     <UseWindowsForms>true</UseWindowsForms>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
@@ -26,46 +26,46 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Extensions\set_page_color\icon.png" />
-    <Content Include="Extensions\set_page_color\popup.html" />
-    <Content Include="Extensions\set_page_color\popup.js" />
-    <Content Include="Resources\assets\css\docs.css" />
-    <Content Include="Resources\assets\css\shCore.css" />
-    <Content Include="Resources\assets\css\shCoreDefault.css" />
-    <Content Include="Resources\assets\js\application.js" />
-    <Content Include="Resources\assets\js\jquery.js" />
-    <Content Include="Resources\assets\js\shBrushCSharp.js" />
-    <Content Include="Resources\assets\js\shCore.js" />
-    <Content Include="Resources\BindingTestAsync.js" />
-    <Content Include="Resources\BindingTestNetCore.html" />
-    <Content Include="Resources\BindingTestsAsyncTask.html" />
-    <Content Include="Resources\BindingApiCustomObjectNameTest.html" />
-    <Content Include="Resources\BindingTestSingle.html" />
-    <Content Include="Resources\BindingTestSync.js" />
-    <Content Include="Resources\DragDropCursorsTest.html" />
-    <Content Include="Resources\JavascriptCallbackTest.html" />
-    <Content Include="Resources\LegacyBindingTest.html" />
-    <Content Include="Resources\CdmSupportTest.html" />
-    <Content Include="Resources\CssAnimation.html" />
-    <Content Include="Resources\ExceptionTest.html" />
-    <Content Include="Resources\BindingTest.html" />
-    <Content Include="Resources\bootstrap\bootstrap-theme.min.css" />
-    <Content Include="Resources\bootstrap\bootstrap.min.css" />
-    <Content Include="Resources\bootstrap\bootstrap.min.js" />
+    <Content Include="Extensions\set_page_color\icon.png"><CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory></Content>
+    <Content Include="Extensions\set_page_color\popup.html"><CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory></Content>
+    <Content Include="Extensions\set_page_color\popup.js"><CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory></Content>
+    <Content Include="Resources\assets\css\docs.css"><CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory></Content>
+    <Content Include="Resources\assets\css\shCore.css"><CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory></Content>
+    <Content Include="Resources\assets\css\shCoreDefault.css"><CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory></Content>
+    <Content Include="Resources\assets\js\application.js"><CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory></Content>
+    <Content Include="Resources\assets\js\jquery.js"><CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory></Content>
+    <Content Include="Resources\assets\js\shBrushCSharp.js"><CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory></Content>
+    <Content Include="Resources\assets\js\shCore.js"><CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory></Content>
+    <Content Include="Resources\BindingTestAsync.js"><CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory></Content>
+    <Content Include="Resources\BindingTestNetCore.html"><CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory></Content>
+    <Content Include="Resources\BindingTestsAsyncTask.html"><CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory></Content>
+    <Content Include="Resources\BindingApiCustomObjectNameTest.html"><CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory></Content>
+    <Content Include="Resources\BindingTestSingle.html"><CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory></Content>
+    <Content Include="Resources\BindingTestSync.js"><CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory></Content>
+    <Content Include="Resources\DragDropCursorsTest.html"><CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory></Content>
+    <Content Include="Resources\JavascriptCallbackTest.html"><CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory></Content>
+    <Content Include="Resources\LegacyBindingTest.html"><CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory></Content>
+    <Content Include="Resources\CdmSupportTest.html"><CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory></Content>
+    <Content Include="Resources\CssAnimation.html"><CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory></Content>
+    <Content Include="Resources\ExceptionTest.html"><CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory></Content>
+    <Content Include="Resources\BindingTest.html"><CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory></Content>
+    <Content Include="Resources\bootstrap\bootstrap-theme.min.css"><CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory></Content>
+    <Content Include="Resources\bootstrap\bootstrap.min.css"><CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory></Content>
+    <Content Include="Resources\bootstrap\bootstrap.min.js"><CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory></Content>
     <Content Include="Resources\extension.js" />
-    <Content Include="Resources\MultiBindingTest.html" />
-    <Content Include="Resources\home.html" />
-    <Content Include="Resources\FramedWebGLTest.html" />
-    <Content Include="Resources\PopupTest.html" />
-    <Content Include="Resources\DraggableRegionTest.html" />
-    <Content Include="Resources\PostMessageTest.html" />
-    <Content Include="Resources\Recaptcha.html" />
-    <Content Include="Resources\ResponseFilterTest.html" />
-    <Content Include="Resources\SchemeTest.html" />
-    <Content Include="Resources\ScriptedMethodsTest.html" />
-    <Content Include="Resources\UnicodeExampleGreaterThan32kb.html" />
-    <Content Include="Resources\UnocodeExampleEqualTo32kb.html" />
-    <Content Include="Resources\TooltipTest.html" />
+    <Content Include="Resources\MultiBindingTest.html"><CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory></Content>
+    <Content Include="Resources\home.html"><CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory></Content>
+    <Content Include="Resources\FramedWebGLTest.html"><CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory></Content>
+    <Content Include="Resources\PopupTest.html"><CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory></Content>
+    <Content Include="Resources\DraggableRegionTest.html"><CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory></Content>
+    <Content Include="Resources\PostMessageTest.html"><CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory></Content>
+    <Content Include="Resources\Recaptcha.html"><CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory></Content>
+    <Content Include="Resources\ResponseFilterTest.html"><CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory></Content>
+    <Content Include="Resources\SchemeTest.html"><CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory></Content>
+    <Content Include="Resources\ScriptedMethodsTest.html"><CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory></Content>
+    <Content Include="Resources\UnicodeExampleGreaterThan32kb.html"><CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory></Content>
+    <Content Include="Resources\UnocodeExampleEqualTo32kb.html"><CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory></Content>
+    <Content Include="Resources\TooltipTest.html"><CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory></Content>
     <EmbeddedResource Update="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

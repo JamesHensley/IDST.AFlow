@@ -172,9 +172,11 @@ namespace IDST.AFlow.Browser.Core
             {
                 var architecture = Environment.Is64BitProcess ? "x64" : "x86";
 #if NETCOREAPP
-                settings.BrowserSubprocessPath = Path.GetFullPath("..\\..\\..\\..\\..\\CefSharp.BrowserSubprocess\\bin.netcore\\" + architecture + "\\Debug\\netcoreapp3.1\\CefSharp.BrowserSubprocess.exe");
+                //settings.BrowserSubprocessPath = Path.GetFullPath("..\\..\\..\\..\\..\\CefSharp.BrowserSubprocess\\bin.netcore\\" + architecture + "\\Debug\\netcoreapp3.1\\CefSharp.BrowserSubprocess.exe");
+                settings.BrowserSubprocessPath = Path.GetFullPath(".\\CefSharp.BrowserSubprocess.exe");
 #else
-                settings.BrowserSubprocessPath = Path.GetFullPath("..\\..\\..\\..\\CefSharp.BrowserSubprocess\\bin\\" + architecture + "\\Debug\\CefSharp.BrowserSubprocess.exe");
+                //settings.BrowserSubprocessPath = Path.GetFullPath("..\\..\\..\\..\\CefSharp.BrowserSubprocess\\bin\\" + architecture + "\\Debug\\CefSharp.BrowserSubprocess.exe");
+                settings.BrowserSubprocessPath = Path.GetFullPath(".\\CefSharp.BrowserSubprocess.exe");
 #endif
             }
 
@@ -208,12 +210,7 @@ namespace IDST.AFlow.Browser.Core
                 IsSecure = true //treated with the same security rules as those applied to "https" URLs
             });
 
-            const string cefSharpExampleResourcesFolder =
-#if !NETCOREAPP
-                @"..\..\..\..\CefSharp.Example\Resources";
-#else
-                @"..\..\..\..\..\CefSharp.Example\Resources";
-#endif
+            const string cefSharpExampleResourcesFolder = @".\Resources";
 
             settings.RegisterScheme(new CefCustomScheme
             {

@@ -91,7 +91,7 @@ namespace IDST.AFlow.Browser.Core
                 var mimeType = Cef.GetMimeType("png");
                 //Load a resource handler for Logo.png
                 //mimeType is optional and will default to text/html
-                return ResourceHandler.FromFilePath("..\\..\\..\\..\\CefSharp.WinForms.Example\\Resources\\chromium-256.png", mimeType, autoDisposeStream: true);
+                return ResourceHandler.FromFilePath("..\\Resources\\chromium-256.png", mimeType, autoDisposeStream: true);
             }
 
             if (uri.Host == "cefsharp.com" && schemeName == "https" && (string.Equals(fileName, "/PostDataTest.html", StringComparison.OrdinalIgnoreCase) ||

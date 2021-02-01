@@ -1,9 +1,11 @@
-﻿using System;
+﻿using CefSharp;
+using CefSharp.WinForms;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CefSharp.WinForms.Example.WorkflowHelpers
+namespace IDST.AFlow.Browser.UI.WorkflowHelpers
 {
     //public ChromiumWebBrowser Browser { get; set; }
     public static class BrowserMethods

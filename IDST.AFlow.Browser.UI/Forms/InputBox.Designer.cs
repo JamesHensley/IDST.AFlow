@@ -1,4 +1,4 @@
-namespace IDST.AFlow.Browser.UI
+namespace IDST.AFlow.Browser.UI.Forms
 {
     partial class InputBox
     {

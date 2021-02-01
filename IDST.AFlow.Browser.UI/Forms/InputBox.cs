@@ -5,7 +5,7 @@
 using System;
 using System.Windows.Forms;
 
-namespace IDST.AFlow.Browser.UI
+namespace IDST.AFlow.Browser.UI.Forms
 {
     public partial class InputBox : Form
     {

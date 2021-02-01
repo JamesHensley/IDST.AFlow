@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace FlowEngine.Workflow
+namespace IDST.AFlow.Browser.UI.Workflow.Models
 {
     public class WorkflowDefinition
     {

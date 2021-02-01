@@ -12,8 +12,8 @@
     <PropertyGroup>
         <OutputType>WinExe</OutputType>
         <TargetFramework>netcoreapp3.1</TargetFramework>
-        <RootNamespace>CefSharp.WinForms.Example</RootNamespace>
-        <AssemblyName>CefSharp.WinForms.Example</AssemblyName>
+        <RootNamespace>IDST.AFlow.Browser.UI</RootNamespace>
+        <AssemblyName>IDST.AFlow.Browser.UI</AssemblyName>
         <UseWindowsForms>true</UseWindowsForms>
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
         <ApplicationManifest>app.manifest</ApplicationManifest>
@@ -53,6 +53,38 @@
     <ItemGroup>
       <PackageReference Include="cef.redist.x64" Version="86.0.24" />
       <PackageReference Include="CefSharp.WinForms" Version="86.0.241" />
+      <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.1" />
+      <PackageReference Include="WorkflowCore" Version="3.3.5" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="Resources\chromium-256.png">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="Resources\nav_left_green.png">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="Resources\nav_plain_green.png">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="Resources\nav_plain_red.png">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="Resources\nav_right_green.png">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Update="CefSharp">
+        <Private>true</Private>
+      </Reference>
+      <Reference Update="CefSharp.Core">
+        <Private>true</Private>
+      </Reference>
+      <Reference Update="CefSharp.WinForms">
+        <Private>true</Private>
+      </Reference>
     </ItemGroup>
 
     <Import Project="$(SolutionDir)\IDST.AFlow.AfterBuild.targets" />

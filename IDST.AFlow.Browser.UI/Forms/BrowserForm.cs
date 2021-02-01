@@ -8,15 +8,17 @@ using CefSharp.WinForms;
 using IDST.AFlow.Browser.Core;
 using IDST.AFlow.Browser.Core.Callback;
 using IDST.AFlow.Browser.Core.Handlers;
+using IDST.AFlow.Browser.UI.Workflow;
+using IDST.AFlow.Browser.UI.Workflow.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WorkflowCore.Interface;
 
-
-namespace IDST.AFlow.Browser.UI
+namespace IDST.AFlow.Browser.UI.Forms
 {
     public partial class BrowserForm : Form
     {
@@ -27,8 +29,12 @@ namespace IDST.AFlow.Browser.UI
 
         private bool multiThreadedMessageLoopEnabled;
 
-        public BrowserForm(bool multiThreadedMessageLoopEnabled)
+        private IServiceProvider serviceProvider;
+
+        public BrowserForm(bool multiThreadedMessageLoopEnabled, IServiceProvider ServiceProvider)
         {
+            serviceProvider = ServiceProvider;
+
             InitializeComponent();
 
             var bitness = Environment.Is64BitProcess ? "x64" : "x86";
@@ -570,12 +576,7 @@ namespace IDST.AFlow.Browser.UI
                 {
                     var requestContext = control.Browser.GetBrowserHost().RequestContext;
 
-                    const string cefSharpExampleResourcesFolder =
-#if !NETCOREAPP
-                        @"..\..\..\..\CefSharp.Example\Extensions";
-#else
-                        @"..\..\..\..\..\CefSharp.Example\Resources";
-#endif
+                    const string cefSharpExampleResourcesFolder = @".\Resources";
 
                     var dir = Path.Combine(AppContext.BaseDirectory, cefSharpExampleResourcesFolder);
                     dir = Path.GetFullPath(dir);
@@ -639,6 +640,35 @@ namespace IDST.AFlow.Browser.UI
                     }
                 };
             }
+        }
+
+        private void WorkflowToolStripMenuItemClick(object sender, EventArgs e) {
+            var control = GetCurrentTabControl();
+            if (control != null)
+            {
+                var aa = new WorkflowData();
+                var xx = new IDSTWorkFlow(control.BrowserHandle);
+
+                var host = serviceProvider.GetService(Type.GetType("IWorkflowHost")) as IWorkflowHost;
+                //var host = serviceProvider.GetService<IWorkflowHost>();
+
+                host.RegisterWorkflow<IDSTWorkFlow>();
+                host.StartWorkflow("TestWorkflow", 1, null);
+
+                host.OnStepError += Host_OnStepError;
+                host.OnLifeCycleEvent += Host_OnLifeCycleEvent;
+                //control.Browser.LoadHtml(html, false);
+            }
+        }
+
+        private void Host_OnLifeCycleEvent(WorkflowCore.Models.LifeCycleEvents.LifeCycleEvent evt)
+        {
+            System.Diagnostics.Debugger.Break();
+        }
+
+        private void Host_OnStepError(WorkflowCore.Models.WorkflowInstance workflow, WorkflowCore.Models.WorkflowStep step, Exception exception)
+        {
+            System.Diagnostics.Debugger.Break();
         }
     }
 }

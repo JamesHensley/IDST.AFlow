@@ -1,9 +1,10 @@
-﻿using System;
+﻿using CefSharp.WinForms;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace CefSharp.WinForms.Example.WorkflowHelpers
+namespace IDST.AFlow.Browser.UI.WorkflowHelpers
 {
     public static class BrowserService
     {
@@ -13,6 +14,9 @@ namespace CefSharp.WinForms.Example.WorkflowHelpers
         {
             if (browserList == null) { browserList = new List<ChromiumWebBrowser>(); }
 
+            browser.Disposed += (object sender, EventArgs o) => {
+                UnRegisterBrowser(browser.Handle);
+            };
             browserList.Add(browser);
         }
 

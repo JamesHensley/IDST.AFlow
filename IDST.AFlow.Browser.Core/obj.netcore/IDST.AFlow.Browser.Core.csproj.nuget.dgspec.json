@@ -8,7 +8,7 @@
       "version": "1.0.0",
       "restore": {
         "projectUniqueName": "C:\\Programming\\Projects\\IDST.AFlow\\IDST.AFlow.Browser.Core\\IDST.AFlow.Browser.Core.csproj",
-        "projectName": "CefSharp.Example",
+        "projectName": "IDST.AFlow.Browser.Core",
         "projectPath": "C:\\Programming\\Projects\\IDST.AFlow\\IDST.AFlow.Browser.Core\\IDST.AFlow.Browser.Core.csproj",
         "packagesPath": "C:\\Users\\idstadmin\\.nuget\\packages\\",
         "outputPath": "C:\\Programming\\Projects\\IDST.AFlow\\IDST.AFlow.Browser.Core\\obj.netcore\\",
