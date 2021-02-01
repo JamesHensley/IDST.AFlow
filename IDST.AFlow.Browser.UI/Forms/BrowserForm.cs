@@ -656,8 +656,8 @@ namespace IDST.AFlow.Browser.UI.Forms
                 var wfData = new WorkflowData()
                 {
                     BrowserHandle = control.BrowserHandle,
-                    NavigateUrl = "https://www.github.com",
-                    PageData = new List<KeyValuePair<string, string>>()
+                    PageData = new List<KeyValuePair<string, string>>(),
+                    TestInt = 0
                 };
 
                 var wfTask = host.StartWorkflow("IDSTWorkFlow", 1, wfData, null);
@@ -670,7 +670,7 @@ namespace IDST.AFlow.Browser.UI.Forms
 
         private void Host_OnLifeCycleEvent(WorkflowCore.Models.LifeCycleEvents.LifeCycleEvent evt)
         {
-            System.Diagnostics.Debug.WriteLine($"Host_OnLifeCycleEvent: {evt.Reference} {evt.Version}");
+            //System.Diagnostics.Debug.WriteLine($"Host_OnLifeCycleEvent: {evt.Reference} {evt.Version}");
         }
 
         private void Host_OnStepError(WorkflowCore.Models.WorkflowInstance workflow, WorkflowCore.Models.WorkflowStep step, Exception exception)

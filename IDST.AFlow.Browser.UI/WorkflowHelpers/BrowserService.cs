@@ -1,4 +1,6 @@
-﻿using CefSharp.WinForms;
+﻿using CefSharp;
+using CefSharp.WinForms;
+using IDST.AFlow.Browser.UI.Forms;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,29 +10,30 @@ namespace IDST.AFlow.Browser.UI.WorkflowHelpers
 {
     public static class BrowserService
     {
-        private static List<ChromiumWebBrowser> browserList;
+        private static readonly List<BrowserRecord> browserList = new List<BrowserRecord>();
 
-        public static void RegisterBrowser(ChromiumWebBrowser browser)
+        public static void RegisterBrowser(BrowserRecord record)
         {
-            if (browserList == null) { browserList = new List<ChromiumWebBrowser>(); }
-            browserList.Add(browser);
-            browser.Disposed += UnRegisterBrowser;
+            browserList.Add(record);
+            record.BrowserForm.Disposed += UnRegisterBrowser;
         }
 
         public static void UnRegisterBrowser(object sender, EventArgs o)
         {
-            var browserHandle = (sender as ChromiumWebBrowser).Handle;
-
-            var bObj = browserList.FirstOrDefault(o => o.Handle == browserHandle);
-            if (bObj != null)
-            {
-                System.Diagnostics.Debug.WriteLine($"Removing browser with handle: {browserHandle.ToInt64()}");
-                browserList.Remove(bObj);
-            }
+            browserList.Clear();
+            //var browserHandle = (sender as ChromiumWebBrowser).Handle;
+            //browserList.RemoveAll(o => o.Key == browserHandle);
         }
 
-        public static ChromiumWebBrowser BrowserById(IntPtr browserHandle) {
-            return browserList.FirstOrDefault(o => o.Handle == browserHandle);
+        public static BrowserRecord BrowserById(IntPtr browserHandle)
+        {
+            return browserList.FirstOrDefault(o => o.BrowserHandle == browserHandle);
+        }
+
+        public static void DataLoaded(IFrame frame, string url, object data)
+        {
+            System.Diagnostics.Debug.WriteLine($"BrowserService.DataLoaded: {frame.Url} {url} {data}");
+            
         }
     }
 }

@@ -1,28 +1,29 @@
-﻿using IDST.AFlow.Browser.UI.WorkflowHelpers;
+﻿using IDST.AFlow.Browser.UI.Workflow.Models;
+using IDST.AFlow.Browser.UI.WorkflowHelpers;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using WorkflowCore.Interface;
 using WorkflowCore.Models;
 
 namespace IDST.AFlow.Browser.UI.Workflow.Steps
 {
-    public class HtmlStepNavigate : StepBody
+    public class HtmlStepNavigate : StepBodyAsync
     {
+        public WorkflowData workflowData { get; set; }
+
         public string NavigateUrl { get; set; }
 
-        public IntPtr BrowserHandle { get; set; }
-
-        public List<KeyValuePair<string, string>> PageData { get; set; }
-
-
-        public override ExecutionResult Run(IStepExecutionContext context)
+        public override async Task<ExecutionResult> RunAsync(IStepExecutionContext context)
         {
-            System.Diagnostics.Debug.WriteLine($"Running Step: {NavigateUrl} {context?.Step?.Name ?? "No Name Given"}");
-            var pageKvpVal = BrowserMethods.LoadPageAsync(BrowserHandle, NavigateUrl).Result;
-            System.Diagnostics.Debug.WriteLine($"....... Got page code");
-            PageData.Add(new KeyValuePair<string, string>("PageDataKey", pageKvpVal));
+            workflowData.TestInt++;
 
+            System.Diagnostics.Debug.WriteLine($"RunAsync Step: {NavigateUrl} {context?.Step?.Name ?? "No Name Given"}");
+            var pageKvpVal = BrowserMethods.LoadPageAsync(workflowData.BrowserHandle, NavigateUrl).Result;
+            System.Diagnostics.Debug.WriteLine($"RunAsync Step...got data: {pageKvpVal}");
+
+            workflowData.PageData.Add(new KeyValuePair<string, string>($"{NavigateUrl}{workflowData.TestInt}", pageKvpVal));
             return ExecutionResult.Next();
         }
     }

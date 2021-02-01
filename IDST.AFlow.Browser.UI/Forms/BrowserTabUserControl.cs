@@ -24,6 +24,7 @@ namespace IDST.AFlow.Browser.UI.Forms
         public IntPtr BrowserHandle;
         private ChromeWidgetMessageInterceptor messageInterceptor;
         private bool multiThreadedMessageLoopEnabled;
+        private string pageSource;
 
         public BrowserTabUserControl(Action<string, int?> openNewTab, string url, bool multiThreadedMessageLoopEnabled)
         {
@@ -69,6 +70,8 @@ namespace IDST.AFlow.Browser.UI.Forms
             browser.LoadError += OnLoadError;
             browser.JavascriptObjectRepository.Register("boundAsync", new AsyncBoundObject(), options: BindingOptions.DefaultBinder, isAsync: true);
 
+            browser.RequestHandler = new IDSTWorkflowRequestEventHandler(openNewTab);
+
             //If you call CefSharp.BindObjectAsync in javascript and pass in the name of an object which is not yet
             //bound, then ResolveObject will be called, you can then register it
             browser.JavascriptObjectRepository.ResolveObject += (sender, e) =>
@@ -95,25 +98,32 @@ namespace IDST.AFlow.Browser.UI.Forms
             browser.RenderProcessMessageHandler = new RenderProcessMessageHandler();
             browser.DisplayHandler = new DisplayHandler();
             //browser.MouseDown += OnBrowserMouseClick;
+
             browser.HandleCreated += OnBrowserHandleCreated;
+
             //browser.ResourceHandlerFactory = new FlashResourceHandlerFactory();
             this.multiThreadedMessageLoopEnabled = multiThreadedMessageLoopEnabled;
 
             var eventObject = new ScriptedMethodsBoundObject();
             eventObject.EventArrived += OnJavascriptEventArrived;
-            // Use the default of camelCaseJavascriptNames
-            // .Net methods starting with a capitol will be translated to starting with a lower case letter when called from js
-#if !NETCOREAPP
-            browser.JavascriptObjectRepository.Register("boundEvent", eventObject, isAsync: false, options: BindingOptions.DefaultBinder);
-#endif
 
             CefExample.RegisterTestResources(browser);
 
             var version = string.Format("Chromium: {0}, CEF: {1}, CefSharp: {2}", Cef.ChromiumVersion, Cef.CefVersion, Cef.CefSharpVersion);
             //Set label directly, don't use DisplayOutput as call would be a NOOP (no valid handle yet).
             outputLabel.Text = version;
+        }
 
-            BrowserService.RegisterBrowser(browser);
+
+        private void OnBrowserHandleCreated(object sender, EventArgs e)
+        {
+            var b = (ChromiumWebBrowser)Browser;
+            BrowserHandle = b.Handle;
+            BrowserService.RegisterBrowser(new BrowserRecord() {
+                BrowserHandle = b.Handle,
+                BrowserControl = b,
+                BrowserForm = this
+            });
         }
 
         /// <summary>
@@ -137,11 +147,6 @@ namespace IDST.AFlow.Browser.UI.Forms
                 }
             }
             base.Dispose(disposing);
-        }
-
-        private void OnBrowserHandleCreated(object sender, EventArgs e)
-        {
-            BrowserHandle = ((ChromiumWebBrowser)Browser).Handle;
         }
 
         private void OnBrowserMouseClick(object sender, MouseEventArgs e)
@@ -532,6 +537,13 @@ namespace IDST.AFlow.Browser.UI.Forms
             {
                 return Browser.GetBrowserHost().HasDevTools;
             });
+        }
+
+
+
+        public string GetPageSource()
+        {
+            return "";
         }
     }
 }
