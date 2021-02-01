@@ -19,6 +19,7 @@ namespace IDST.AFlow.Browser.UI.Workflow
 
         public void Build(IWorkflowBuilder<WorkflowData> builder)
         {
+
             builder.StartWith(context =>
             {
                 System.Diagnostics.Debug.WriteLine("Starting workflow....");
@@ -27,6 +28,7 @@ namespace IDST.AFlow.Browser.UI.Workflow
             .Then<HtmlStepNavigate>()
                 .Input(step => step.BrowserHandle, data => workflowData.BrowserHandle)
                 .Input(step => step.NavigateUrl, data => workflowData.NavigateUrl)
+                .Input(step => step.PageData, data => new List<KeyValuePair<string, string>>())
                 .Output(data => workflowData.OutputData, step => step.PageData)
             .Then(context => {
                 System.Diagnostics.Debug.WriteLine("Finishing workflow....");

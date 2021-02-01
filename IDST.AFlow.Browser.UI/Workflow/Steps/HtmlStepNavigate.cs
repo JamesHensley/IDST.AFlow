@@ -13,14 +13,14 @@ namespace IDST.AFlow.Browser.UI.Workflow.Steps
 
         public IntPtr BrowserHandle { get; set; }
 
-        //public string PageData { get; set; }
         public List<KeyValuePair<string, string>> PageData { get; set; }
+
 
         public override ExecutionResult Run(IStepExecutionContext context)
         {
-            PageData = new List<KeyValuePair<string, string>>();
-
+            System.Diagnostics.Debug.WriteLine($"Running Step: {context.Step.Name}");
             var pageKvpVal = BrowserMethods.LoadPageAsync(BrowserHandle, NavigateUrl).Result;
+            System.Diagnostics.Debug.WriteLine($"....... Got page code");
             PageData.Add(new KeyValuePair<string, string>("PageData", pageKvpVal));
 
             return ExecutionResult.Next();
