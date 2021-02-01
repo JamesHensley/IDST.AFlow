@@ -10,6 +10,7 @@ using IDST.AFlow.Browser.Core.Callback;
 using IDST.AFlow.Browser.Core.Handlers;
 using IDST.AFlow.Browser.UI.Workflow;
 using IDST.AFlow.Browser.UI.Workflow.Models;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -29,9 +30,9 @@ namespace IDST.AFlow.Browser.UI.Forms
 
         private bool multiThreadedMessageLoopEnabled;
 
-        private IServiceProvider serviceProvider;
+        private System.IServiceProvider serviceProvider;
 
-        public BrowserForm(bool multiThreadedMessageLoopEnabled, IServiceProvider ServiceProvider)
+        public BrowserForm(bool multiThreadedMessageLoopEnabled, System.IServiceProvider ServiceProvider)
         {
             serviceProvider = ServiceProvider;
 
@@ -646,29 +647,32 @@ namespace IDST.AFlow.Browser.UI.Forms
             var control = GetCurrentTabControl();
             if (control != null)
             {
-                var aa = new WorkflowData();
-                var xx = new IDSTWorkFlow(control.BrowserHandle);
-
-                var host = serviceProvider.GetService(Type.GetType("IWorkflowHost")) as IWorkflowHost;
-                //var host = serviceProvider.GetService<IWorkflowHost>();
-
-                host.RegisterWorkflow<IDSTWorkFlow>();
-                host.StartWorkflow("TestWorkflow", 1, null);
+                var host = serviceProvider.GetService<IWorkflowHost>();
+                host.RegisterWorkflow<IDSTWorkFlow, WorkflowData>();
 
                 host.OnStepError += Host_OnStepError;
                 host.OnLifeCycleEvent += Host_OnLifeCycleEvent;
-                //control.Browser.LoadHtml(html, false);
+                host.Start();
+
+                var wfTask = host.StartWorkflow("IDSTWorkFlow", 1, new WorkflowData() {
+                    BrowserHandle = control.BrowserHandle,
+                    NavigateUrl = "https://www.github.com"
+                }, null);
+                var final = wfTask.Result;
+
+                System.Diagnostics.Debug.WriteLine($"--------------------------{Environment.NewLine}|{Environment.NewLine}--------------------------");
+                System.Diagnostics.Debug.WriteLine(final);
             }
         }
 
         private void Host_OnLifeCycleEvent(WorkflowCore.Models.LifeCycleEvents.LifeCycleEvent evt)
         {
-            System.Diagnostics.Debugger.Break();
+            System.Diagnostics.Debug.WriteLine($"Host_OnLifeCycleEvent: {evt.Reference} {evt.Version}");
         }
 
         private void Host_OnStepError(WorkflowCore.Models.WorkflowInstance workflow, WorkflowCore.Models.WorkflowStep step, Exception exception)
         {
-            System.Diagnostics.Debugger.Break();
+            System.Diagnostics.Debug.WriteLine($"Host_OnStepError: {exception.Message}");
         }
     }
 }

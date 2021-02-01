@@ -54,6 +54,7 @@
       <PackageReference Include="cef.redist.x64" Version="86.0.24" />
       <PackageReference Include="CefSharp.WinForms" Version="86.0.241" />
       <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.1" />
+      <PackageReference Include="Microsoft.Extensions.Logging" Version="5.0.0" />
       <PackageReference Include="WorkflowCore" Version="3.3.5" />
     </ItemGroup>
 

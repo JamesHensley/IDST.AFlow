@@ -9,29 +9,15 @@ using WorkflowCore.Models;
 
 namespace IDST.AFlow.Browser.UI.Workflow
 {
-    //public class IDSTWorkFlow : IWorkflow<WorkflowData>
-    public class IDSTWorkFlow : IWorkflow
+    public class IDSTWorkFlow : IWorkflow<WorkflowData>
     {
-        private IntPtr _browserHandle { get; set; }
-
-        public IDSTWorkFlow(IntPtr BrowserHandle)
-        {
-            _browserHandle = BrowserHandle;
-        }
-
-        public string Id { get { return ""; } }
+        public string Id { get { return "IDSTWorkFlow"; } }
 
         public int Version { get { return 1; } }
 
-        private WorkflowData workflowData;
+        public WorkflowData workflowData;
 
-        public IDSTWorkFlow()
-        {
-            workflowData = new WorkflowData();
-        }
-
-        //public void Build(IWorkflowBuilder<WorkflowData> builder)
-        public void Build(IWorkflowBuilder<object> builder)
+        public void Build(IWorkflowBuilder<WorkflowData> builder)
         {
             builder.StartWith(context =>
             {
@@ -39,8 +25,8 @@ namespace IDST.AFlow.Browser.UI.Workflow
                 return ExecutionResult.Next();
             })
             .Then<HtmlStepNavigate>()
-                .Input(step => step.BrowserHandle, data => _browserHandle)
-                .Input(step => step.NavigateUrl, data => "https://www.github.com")
+                .Input(step => step.BrowserHandle, data => workflowData.BrowserHandle)
+                .Input(step => step.NavigateUrl, data => workflowData.NavigateUrl)
                 .Output(data => workflowData.OutputData, step => step.PageData)
             .Then(context => {
                 System.Diagnostics.Debug.WriteLine("Finishing workflow....");

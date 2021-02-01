@@ -14,6 +14,9 @@ using IDST.AFlow.Browser.UI.Handlers;
 using IDST.AFlow.Browser.UI.Minimal;
 using IDST.AFlow.Browser.UI.Workflow.Steps;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+
+using WorkflowCore.Services;
 
 namespace IDST.AFlow.Browser.UI
 {
@@ -22,9 +25,7 @@ namespace IDST.AFlow.Browser.UI
         [STAThread]
         public static int Main(string[] args)
         {
-            IServiceCollection services = new ServiceCollection();
-            services.AddWorkflow();
-            services.AddTransient<HtmlStepNavigate>();
+            IServiceProvider serviceProvider = ConfigureServices();
 
             const bool selfHostSubProcess = false;
 
@@ -72,7 +73,7 @@ namespace IDST.AFlow.Browser.UI
                 const bool multiThreadedMessageLoop = true;
                 const bool externalMessagePump = false;
 
-                var browser = new BrowserForm(multiThreadedMessageLoop, services.BuildServiceProvider());
+                var browser = new BrowserForm(multiThreadedMessageLoop, serviceProvider);
                 //var browser = new SimpleBrowserForm(multiThreadedMessageLoop);
                 //var browser = new TabulationDemoForm();
 
@@ -109,6 +110,20 @@ namespace IDST.AFlow.Browser.UI
             }
 
             return 0;
+        }
+
+        private static IServiceProvider ConfigureServices()
+        {
+            //setup dependency injection
+            IServiceCollection services = new ServiceCollection();
+            services.AddLogging();
+            services.AddWorkflow();
+            services.AddTransient<HtmlStepNavigate>();
+
+            //services.AddWorkflow(x => x.UseSqlServer(@"Server=.\SQLEXPRESS;Database=WorkflowCore;Trusted_Connection=True;", true, true));
+            var serviceProvider = services.BuildServiceProvider();
+
+            return serviceProvider;
         }
     }
 }

@@ -13,15 +13,14 @@ namespace IDST.AFlow.Browser.UI.WorkflowHelpers
         public static void RegisterBrowser(ChromiumWebBrowser browser)
         {
             if (browserList == null) { browserList = new List<ChromiumWebBrowser>(); }
-
-            browser.Disposed += (object sender, EventArgs o) => {
-                UnRegisterBrowser(browser.Handle);
-            };
             browserList.Add(browser);
+            browser.Disposed += UnRegisterBrowser;
         }
 
-        public static void UnRegisterBrowser(IntPtr browserHandle)
+        public static void UnRegisterBrowser(object sender, EventArgs o)
         {
+            var browserHandle = (sender as ChromiumWebBrowser).Handle;
+
             var bObj = browserList.FirstOrDefault(o => o.Handle == browserHandle);
             if (bObj != null)
             {
