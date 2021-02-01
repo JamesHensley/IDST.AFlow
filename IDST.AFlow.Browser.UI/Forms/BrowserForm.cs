@@ -649,15 +649,18 @@ namespace IDST.AFlow.Browser.UI.Forms
             {
                 var host = serviceProvider.GetService<IWorkflowHost>();
                 host.RegisterWorkflow<IDSTWorkFlow, WorkflowData>();
-
                 host.OnStepError += Host_OnStepError;
                 host.OnLifeCycleEvent += Host_OnLifeCycleEvent;
                 host.Start();
 
-                var wfTask = host.StartWorkflow("IDSTWorkFlow", 1, new WorkflowData() {
+                var wfData = new WorkflowData()
+                {
                     BrowserHandle = control.BrowserHandle,
-                    NavigateUrl = "https://www.github.com"
-                }, null);
+                    NavigateUrl = "https://www.github.com",
+                    PageData = new List<KeyValuePair<string, string>>()
+                };
+
+                var wfTask = host.StartWorkflow("IDSTWorkFlow", 1, wfData, null);
                 var final = wfTask.Result;
 
                 System.Diagnostics.Debug.WriteLine($"--------------------------{Environment.NewLine}|{Environment.NewLine}--------------------------");
@@ -673,6 +676,7 @@ namespace IDST.AFlow.Browser.UI.Forms
         private void Host_OnStepError(WorkflowCore.Models.WorkflowInstance workflow, WorkflowCore.Models.WorkflowStep step, Exception exception)
         {
             System.Diagnostics.Debug.WriteLine($"Host_OnStepError: {exception.Message}");
+            System.Diagnostics.Debug.WriteLine($"Host_OnStepError Stack: {Environment.NewLine}{exception.StackTrace}");
         }
     }
 }

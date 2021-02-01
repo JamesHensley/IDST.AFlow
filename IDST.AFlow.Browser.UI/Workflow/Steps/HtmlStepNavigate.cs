@@ -18,10 +18,10 @@ namespace IDST.AFlow.Browser.UI.Workflow.Steps
 
         public override ExecutionResult Run(IStepExecutionContext context)
         {
-            System.Diagnostics.Debug.WriteLine($"Running Step: {context.Step.Name}");
+            System.Diagnostics.Debug.WriteLine($"Running Step: {NavigateUrl} {context?.Step?.Name ?? "No Name Given"}");
             var pageKvpVal = BrowserMethods.LoadPageAsync(BrowserHandle, NavigateUrl).Result;
             System.Diagnostics.Debug.WriteLine($"....... Got page code");
-            PageData.Add(new KeyValuePair<string, string>("PageData", pageKvpVal));
+            PageData.Add(new KeyValuePair<string, string>("PageDataKey", pageKvpVal));
 
             return ExecutionResult.Next();
         }

@@ -10,6 +10,6 @@ namespace IDST.AFlow.Browser.UI.Workflow.Models
 
         public string NavigateUrl { get; set; }
 
-        public List<KeyValuePair<string, string>> OutputData { get; set; }
+        public List<KeyValuePair<string, string>> PageData { get; set; }
     }
 }
