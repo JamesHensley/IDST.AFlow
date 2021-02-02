@@ -36,18 +36,16 @@ namespace IDST.AFlow.Browser.UI.WorkflowHelpers
         }
 
 
-        public static Task<string> ExecuteJSAsync(IntPtr browserRef, string scriptStr) {
+        public static Task<JavascriptResponse> ExecuteJSAsync(IntPtr browserRef, string scriptStr) {
             var bRec = BrowserService.BrowserById(browserRef);
             if (bRec == null || bRec.BrowserControl.CanExecuteJavascriptInMainFrame == false) { return null; }
 
             //Important that the continuation runs async using TaskCreationOptions.RunContinuationsAsynchronously
-            var tcs = new TaskCompletionSource<string>(TaskCreationOptions.RunContinuationsAsynchronously);
+            var tcs = new TaskCompletionSource<JavascriptResponse>(TaskCreationOptions.RunContinuationsAsynchronously);
 
             bRec.BrowserControl.InvokeOnUiThreadIfRequired(() => {
                 var result = bRec.BrowserControl.EvaluateScriptAsync(scriptStr).Result;
-                string resultStr = System.Text.Json.JsonSerializer.Serialize(result);
-
-                tcs.TrySetResult(resultStr);
+                tcs.TrySetResult(result);
             });
 
             return tcs.Task;
