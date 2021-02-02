@@ -30,11 +30,11 @@ namespace IDST.AFlow.Browser.UI.Forms
 
         private bool multiThreadedMessageLoopEnabled;
 
-        private IServiceProvider serviceProvider;
+        private readonly IServiceProvider _serviceProvider;
 
-        public BrowserForm(bool multiThreadedMessageLoopEnabled, IServiceProvider ServiceProvider)
+        public BrowserForm(IServiceProvider ServiceProvider)
         {
-            serviceProvider = ServiceProvider;
+            _serviceProvider = ServiceProvider;
 
             InitializeComponent();
 
@@ -48,7 +48,7 @@ namespace IDST.AFlow.Browser.UI.Forms
             ResizeBegin += (s, e) => SuspendLayout();
             ResizeEnd += (s, e) => ResumeLayout(true);
 
-            this.multiThreadedMessageLoopEnabled = multiThreadedMessageLoopEnabled;
+            this.multiThreadedMessageLoopEnabled = true;
         }
 
         public IContainer Components
@@ -647,12 +647,7 @@ namespace IDST.AFlow.Browser.UI.Forms
             var control = GetCurrentTabControl();
             if (control != null)
             {
-                var host = serviceProvider.GetService<IWorkflowHost>();
-                host.RegisterWorkflow<IDSTWorkFlow, WorkflowData>();
-                host.OnStepError += Host_OnStepError;
-                host.OnLifeCycleEvent += Host_OnLifeCycleEvent;
-                host.Start();
-
+                var host = _serviceProvider.GetService<IWorkflowHost>();
                 var initialWorkflowData = new WorkflowData()
                 {
                     BrowserHandle = control.BrowserHandle,
@@ -664,17 +659,6 @@ namespace IDST.AFlow.Browser.UI.Forms
                 System.Diagnostics.Debug.WriteLine($"Started Workflow: {workflowInstanceId}");
                 System.Diagnostics.Debug.WriteLine($"----------------------------------------------------");
             }
-        }
-
-        private void Host_OnLifeCycleEvent(WorkflowCore.Models.LifeCycleEvents.LifeCycleEvent evt)
-        {
-            //System.Diagnostics.Debug.WriteLine($"Host_OnLifeCycleEvent: {evt.Reference} {evt.Version}");
-        }
-
-        private void Host_OnStepError(WorkflowCore.Models.WorkflowInstance workflow, WorkflowCore.Models.WorkflowStep step, Exception exception)
-        {
-            System.Diagnostics.Debug.WriteLine($"Host_OnStepError: {exception.Message}");
-            System.Diagnostics.Debug.WriteLine($"Host_OnStepError Stack: {Environment.NewLine}{exception.StackTrace}");
         }
     }
 }

@@ -24,7 +24,6 @@ namespace IDST.AFlow.Browser.UI.Forms
         public IntPtr BrowserHandle;
         private ChromeWidgetMessageInterceptor messageInterceptor;
         private bool multiThreadedMessageLoopEnabled;
-        private string pageSource;
 
         public BrowserTabUserControl(Action<string, int?> openNewTab, string url, bool multiThreadedMessageLoopEnabled)
         {
