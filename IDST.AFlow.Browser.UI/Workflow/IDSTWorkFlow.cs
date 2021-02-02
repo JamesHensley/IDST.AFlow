@@ -3,6 +3,7 @@ using IDST.AFlow.Browser.UI.Workflow.Steps;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using WorkflowCore.Interface;
 using WorkflowCore.Models;
 
@@ -17,6 +18,17 @@ namespace IDST.AFlow.Browser.UI.Workflow
 
         public void Build(IWorkflowBuilder<WorkflowData> builder)
         {
+            var scripts = new List<KeyValuePair<int, string>>() {
+                new KeyValuePair<int, string>(1, @"
+                    var domE = document.querySelector(""input[type='text'].header-search-input"");
+                    domE.value = 'cefsharp';
+                    document.querySelector(""form[role='search'].js-site-search-form"").submit();
+                "),
+                new KeyValuePair<int, string>(2, @"
+                    Array.from(document.querySelectorAll(""div.codesearch-results ul.repo-list > li.repo-list-item p.mb-1 "")).map(d => d.innerText);
+                ")
+            };
+
             builder
             .StartWith(context =>
             {
@@ -27,8 +39,16 @@ namespace IDST.AFlow.Browser.UI.Workflow
                 .Input(step => step.NavigateUrl, data => "https://www.github.com")
                 .Input(step => step.workflowData, data => data)
                 .Output(data => data.PageData, step => step.workflowData.PageData)
-            .Then<HtmlStepNavigate>()
-                .Input(step => step.NavigateUrl, data => "https://www.hotmail.com")
+            .Then<HtmlStepExecuteJS>()
+                .Input(step => step.ScriptCode, data => scripts.Find(o => o.Key == 1).Value)
+                .Input(step => step.workflowData, data => data)
+                .Output(data => data.PageData, step => step.workflowData.PageData)
+            .Then(context => {
+                Task.Delay(2000).Wait();
+                return ExecutionResult.Next();
+            })
+            .Then<HtmlStepExecuteJS>()
+                .Input(step => step.ScriptCode, data => scripts.Find(o => o.Key == 2).Value)
                 .Input(step => step.workflowData, data => data)
                 .Output(data => data.PageData, step => step.workflowData.PageData)
             .Then<HtmlStepAnalyze>()

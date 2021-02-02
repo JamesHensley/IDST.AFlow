@@ -655,9 +655,9 @@ namespace IDST.AFlow.Browser.UI.Forms
                 };
 
                 var workflowInstanceId = host.StartWorkflow("IDSTWorkFlow", 1, initialWorkflowData, null).Result;
-                System.Diagnostics.Debug.WriteLine($"----------------------------------------------------");
-                System.Diagnostics.Debug.WriteLine($"Started Workflow: {workflowInstanceId}");
-                System.Diagnostics.Debug.WriteLine($"----------------------------------------------------");
+                System.Diagnostics.Debug.WriteLine($"+---------------------------------------------------");
+                System.Diagnostics.Debug.WriteLine($"| Started Workflow: {workflowInstanceId}");
+                System.Diagnostics.Debug.WriteLine($"+---------------------------------------------------");
             }
         }
     }

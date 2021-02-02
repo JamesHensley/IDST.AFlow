@@ -9,17 +9,18 @@ using WorkflowCore.Models;
 
 namespace IDST.AFlow.Browser.UI.Workflow.Steps
 {
-    public class HtmlStepNavigate : StepBodyAsync
+    public class HtmlStepExecuteJS : StepBodyAsync
     {
         public WorkflowData workflowData { get; set; }
 
-        public string NavigateUrl { get; set; }
+        public string ScriptCode { get; set; }
 
         public override async Task<ExecutionResult> RunAsync(IStepExecutionContext context)
         {
-            var pageSourceHtml = BrowserMethods.LoadPageAsync(workflowData.BrowserHandle, NavigateUrl).Result;
+            System.Diagnostics.Debug.WriteLine($"Running {ScriptCode}");
 
-            workflowData.PageData.Add(new KeyValuePair<string, string>($"{context.Step.Id} - {NavigateUrl}", pageSourceHtml));
+            var scriptResult = BrowserMethods.ExecuteJSAsync(workflowData.BrowserHandle, ScriptCode).Result;
+            workflowData.PageData.Add(new KeyValuePair<string, string>($"{context.Step.Id} {scriptResult}", scriptResult));
             return ExecutionResult.Next();
         }
     }

@@ -34,5 +34,23 @@ namespace IDST.AFlow.Browser.UI.WorkflowHelpers
             }
             return tcs.Task;
         }
+
+
+        public static Task<string> ExecuteJSAsync(IntPtr browserRef, string scriptStr) {
+            var bRec = BrowserService.BrowserById(browserRef);
+            if (bRec == null || bRec.BrowserControl.CanExecuteJavascriptInMainFrame == false) { return null; }
+
+            //Important that the continuation runs async using TaskCreationOptions.RunContinuationsAsynchronously
+            var tcs = new TaskCompletionSource<string>(TaskCreationOptions.RunContinuationsAsynchronously);
+
+            bRec.BrowserControl.InvokeOnUiThreadIfRequired(() => {
+                var result = bRec.BrowserControl.EvaluateScriptAsync(scriptStr).Result;
+                string resultStr = System.Text.Json.JsonSerializer.Serialize(result);
+
+                tcs.TrySetResult(resultStr);
+            });
+
+            return tcs.Task;
+        }
     }
 }
