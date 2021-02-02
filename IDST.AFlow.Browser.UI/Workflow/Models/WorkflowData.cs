@@ -8,10 +8,6 @@ namespace IDST.AFlow.Browser.UI.Workflow.Models
     {
         public IntPtr BrowserHandle { get; set; }
 
-        public int TestInt { get; set; }
-
         public List<KeyValuePair<string, string>> PageData { get; set; }
-
-
     }
 }

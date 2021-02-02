@@ -17,13 +17,10 @@ namespace IDST.AFlow.Browser.UI.Workflow.Steps
 
         public override async Task<ExecutionResult> RunAsync(IStepExecutionContext context)
         {
-            workflowData.TestInt++;
+            System.Diagnostics.Debug.WriteLine($"RunAsync Step: {context.Step.Id} - {NavigateUrl}");
+            var pageSourceHtml = BrowserMethods.LoadPageAsync(workflowData.BrowserHandle, NavigateUrl).Result;
 
-            System.Diagnostics.Debug.WriteLine($"RunAsync Step: {NavigateUrl} {context?.Step?.Name ?? "No Name Given"}");
-            var pageKvpVal = BrowserMethods.LoadPageAsync(workflowData.BrowserHandle, NavigateUrl).Result;
-            System.Diagnostics.Debug.WriteLine($"RunAsync Step...got data: {pageKvpVal}");
-
-            workflowData.PageData.Add(new KeyValuePair<string, string>($"{NavigateUrl}{workflowData.TestInt}", pageKvpVal));
+            workflowData.PageData.Add(new KeyValuePair<string, string>($"{NavigateUrl}", pageSourceHtml));
             return ExecutionResult.Next();
         }
     }

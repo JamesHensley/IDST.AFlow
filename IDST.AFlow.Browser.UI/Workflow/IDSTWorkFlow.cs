@@ -15,20 +15,14 @@ namespace IDST.AFlow.Browser.UI.Workflow
 
         public int Version { get { return 1; } }
 
-        //public WorkflowData workflowData = new WorkflowData();
-
         public void Build(IWorkflowBuilder<WorkflowData> builder)
         {
             builder
             .StartWith(context =>
             {
-                System.Diagnostics.Debug.WriteLine("Starting workflow....");
+                System.Diagnostics.Debug.WriteLine($"Starting workflow... Step: {context.Step.Id}");
                 return ExecutionResult.Next();
             })
-            .Then<AddNumbers>()
-                .Input(step => step.Input1, data => 1)
-                .Input(step => step.Input2, data => 2)
-                .Output(data => data.TestInt, step => step.Output)
             .Then<HtmlStepNavigate>()
                 .Input(step => step.NavigateUrl, data => "https://www.github.com")
                 .Input(step => step.workflowData, data => data)
@@ -41,7 +35,7 @@ namespace IDST.AFlow.Browser.UI.Workflow
                 .Input(step => step.workflowData, data => data)
                 .Output(data => data.PageData, step => step.workflowData.PageData)
             .Then(context => {
-                System.Diagnostics.Debug.WriteLine("Finishing workflow....");
+                System.Diagnostics.Debug.WriteLine($"Finishing workflow... Step: {context.Step.Id}");
                 return ExecutionResult.Next();
             });
         }

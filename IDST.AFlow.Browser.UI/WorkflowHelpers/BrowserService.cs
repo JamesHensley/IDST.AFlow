@@ -12,8 +12,6 @@ namespace IDST.AFlow.Browser.UI.WorkflowHelpers
     {
         private static readonly List<BrowserRecord> browserList = new List<BrowserRecord>();
 
-
-
         public static void RegisterBrowser(BrowserRecord record)
         {
             browserList.Add(record);
@@ -34,7 +32,7 @@ namespace IDST.AFlow.Browser.UI.WorkflowHelpers
 
         public static void DataLoaded(ResourceType resType, IFrame frame, string url, object data)
         {
-            System.Diagnostics.Debug.WriteLine($"BrowserService.DataLoaded: {resType} {frame.Url} {url}");
+            //System.Diagnostics.Debug.WriteLine($"BrowserService.DataLoaded: {resType} {frame.Url} {url}");
         }
     }
 }

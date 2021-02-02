@@ -30,9 +30,9 @@ namespace IDST.AFlow.Browser.UI.Forms
 
         private bool multiThreadedMessageLoopEnabled;
 
-        private System.IServiceProvider serviceProvider;
+        private IServiceProvider serviceProvider;
 
-        public BrowserForm(bool multiThreadedMessageLoopEnabled, System.IServiceProvider ServiceProvider)
+        public BrowserForm(bool multiThreadedMessageLoopEnabled, IServiceProvider ServiceProvider)
         {
             serviceProvider = ServiceProvider;
 
@@ -653,18 +653,16 @@ namespace IDST.AFlow.Browser.UI.Forms
                 host.OnLifeCycleEvent += Host_OnLifeCycleEvent;
                 host.Start();
 
-                var wfData = new WorkflowData()
+                var initialWorkflowData = new WorkflowData()
                 {
                     BrowserHandle = control.BrowserHandle,
-                    PageData = new List<KeyValuePair<string, string>>(),
-                    TestInt = 0
+                    PageData = new List<KeyValuePair<string, string>>()
                 };
 
-                var wfTask = host.StartWorkflow("IDSTWorkFlow", 1, wfData, null);
-                var final = wfTask.Result;
-
-                System.Diagnostics.Debug.WriteLine($"--------------------------{Environment.NewLine}|{Environment.NewLine}--------------------------");
-                System.Diagnostics.Debug.WriteLine(final);
+                var workflowInstanceId = host.StartWorkflow("IDSTWorkFlow", 1, initialWorkflowData, null).Result;
+                System.Diagnostics.Debug.WriteLine($"----------------------------------------------------");
+                System.Diagnostics.Debug.WriteLine($"Started Workflow: {workflowInstanceId}");
+                System.Diagnostics.Debug.WriteLine($"----------------------------------------------------");
             }
         }
 
