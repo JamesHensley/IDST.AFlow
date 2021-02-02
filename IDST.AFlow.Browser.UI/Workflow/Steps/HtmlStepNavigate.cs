@@ -19,7 +19,7 @@ namespace IDST.AFlow.Browser.UI.Workflow.Steps
         {
             var pageSourceHtml = BrowserMethods.LoadPageAsync(workflowData.BrowserHandle, NavigateUrl).Result;
 
-            workflowData.PageData.Add(new KeyValuePair<string, string>($"{context.Step.Id} - {NavigateUrl}", pageSourceHtml));
+            workflowData.PersistentData.Add(new KeyValuePair<string, string>($"{context.Step.Id} - {context.Step.Name} - { NavigateUrl}", pageSourceHtml));
             return ExecutionResult.Next();
         }
     }

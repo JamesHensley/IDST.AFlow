@@ -25,7 +25,14 @@ namespace IDST.AFlow.Browser.UI.Workflow
                     document.querySelector(""form[role='search'].js-site-search-form"").submit();
                 "),
                 new KeyValuePair<int, string>(2, @"
-                    Array.from(document.querySelectorAll(""div.codesearch-results ul.repo-list > li.repo-list-item p.mb-1 "")).map(d => d.innerText);
+                    Array.from(document.querySelectorAll('div.codesearch-results ul.repo-list > li.repo-list-item'))
+                    .map(d => {
+                        return {
+                            txt: d.querySelector('a[data-hydro-click]').innerText,
+                            link: d.querySelector('a[data-hydro-click]').href,
+                            description: d.querySelector('p').innerText
+                        }
+                    });
                 ")
             };
 
@@ -38,22 +45,26 @@ namespace IDST.AFlow.Browser.UI.Workflow
             .Then<HtmlStepNavigate>()
                 .Input(step => step.NavigateUrl, data => "https://www.github.com")
                 .Input(step => step.workflowData, data => data)
-                .Output(data => data.PageData, step => step.workflowData.PageData)
+                .Output(data => data.PersistentData, step => step.workflowData.PersistentData)
             .Then<HtmlStepExecuteJS>()
                 .Input(step => step.ScriptCode, data => scripts.Find(o => o.Key == 1).Value)
                 .Input(step => step.workflowData, data => data)
-                .Output(data => data.PageData, step => step.workflowData.PageData)
-            .Then(context => {
-                Task.Delay(2000).Wait();
-                return ExecutionResult.Next();
-            })
+                .Output(data => data.PersistentData, step => step.workflowData.PersistentData)
+            .Then<GenericDelay>()
+                .Input(step => step.DelayMSec, data => 2000)
+                .Input(step => step.workflowData, data => data)
+                .Output(data => data.PersistentData, step => step.workflowData.PersistentData)
             .Then<HtmlStepExecuteJS>()
                 .Input(step => step.ScriptCode, data => scripts.Find(o => o.Key == 2).Value)
                 .Input(step => step.workflowData, data => data)
-                .Output(data => data.PageData, step => step.workflowData.PageData)
+                .Output(data => data.PersistentData, step => step.workflowData.PersistentData)
             .Then<HtmlStepAnalyze>()
                 .Input(step => step.workflowData, data => data)
-                .Output(data => data.PageData, step => step.workflowData.PageData)
+                .Output(data => data.PersistentData, step => step.workflowData.PersistentData)
+            .Then<OutputStepCSV>()
+                .Input(step => step.workflowData, data => data)
+                .Input(step => step.ExportLocation, data => @"c:\Temp\OutputFile.json")
+                .Output(data => data.PersistentData, step => step.workflowData.PersistentData)
             .Then(context => {
                 System.Diagnostics.Debug.WriteLine($"Finishing workflow... Step: {context.Step.Id}");
                 return ExecutionResult.Next();

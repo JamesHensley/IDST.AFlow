@@ -17,10 +17,8 @@ namespace IDST.AFlow.Browser.UI.Workflow.Steps
 
         public override async Task<ExecutionResult> RunAsync(IStepExecutionContext context)
         {
-            System.Diagnostics.Debug.WriteLine($"Running {ScriptCode}");
-
             var scriptResult = BrowserMethods.ExecuteJSAsync(workflowData.BrowserHandle, ScriptCode).Result;
-            workflowData.PageData.Add(new KeyValuePair<string, string>($"{context.Step.Id} {scriptResult}", scriptResult));
+            workflowData.PersistentData.Add(new KeyValuePair<string, string>($"{context.Step.Id} {context.Step.Name}", scriptResult));
             return ExecutionResult.Next();
         }
     }
