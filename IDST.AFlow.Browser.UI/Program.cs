@@ -46,7 +46,9 @@ namespace IDST.AFlow.Browser.UI
             };
 
             CefExample.Init(settings, browserProcessHandler: browserProcessHandler);
-            Application.Run(browser);
+
+            var form = serviceProvider.GetRequiredService<BrowserForm>();
+            Application.Run(form);
 
             return 0;
         }

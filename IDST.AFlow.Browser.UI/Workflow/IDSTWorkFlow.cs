@@ -46,25 +46,25 @@ namespace IDST.AFlow.Browser.UI.Workflow
                 .Input(step => step.NavigateUrl, data => "https://www.github.com")
                 .Input(step => step.workflowData, data => data)
                 .Output(data => data.PersistentData, step => step.workflowData.PersistentData)
-            .Then<HtmlStepExecuteJS>()
+            .Then<HtmlStepExecuteJS>()              //Populate the SEARCH BOX and execute search
                 .Input(step => step.ScriptCode, data => scripts.Find(o => o.Key == 1).Value)
                 .Input(step => step.workflowData, data => data)
                 .Output(data => data.PersistentData, step => step.workflowData.PersistentData)
-            .Then<GenericDelay>()
+            .Then<GenericDelay>()                   //Wait for 2 seconds...this is only temporary
                 .Input(step => step.DelayMSec, data => 2000)
                 .Input(step => step.workflowData, data => data)
                 .Output(data => data.PersistentData, step => step.workflowData.PersistentData)
-            .Then<HtmlStepCollectWithPagination>()
+            .Then<HtmlStepCollectWithPagination>()  //Start scraping the results page and navigating to the next set of results
                 .Input(step => step.workflowData, data => data)
                 .Input(step => step.MaxPages, data => 2)
                 .Input(step => step.NextElemSelector, data => @"document.querySelector('div.paginate-container div[role=""navigation""] a.next_page').href")
                 .Input(step => step.ScarapeJsCode, data => scripts.Find(o => o.Key == 2).Value)
                 .Input(step => step.PaginationDelay, data => 750)
                 .Output(data => data.PersistentData, step => step.workflowData.PersistentData)
-            .Then<HtmlStepAnalyze>()
+            .Then<HtmlStepAnalyze>()                // This is just fillter for now
                 .Input(step => step.workflowData, data => data)
                 .Output(data => data.PersistentData, step => step.workflowData.PersistentData)
-            .Then<OutputStepCSV>()
+            .Then<OutputStepCSV>()                  // Write all exported data to a text file
                 .Input(step => step.workflowData, data => data)
                 .Input(step => step.ExportLocation, data => @"c:\Temp\OutputFile.json")
                 .Output(data => data.PersistentData, step => step.workflowData.PersistentData)

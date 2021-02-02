@@ -1,6 +1,10 @@
-﻿using IDST.AFlow.Browser.UI.Workflow;
+﻿using IDST.AFlow.Browser.UI.Forms;
+using IDST.AFlow.Browser.UI.Mapper;
+using IDST.AFlow.Browser.UI.Workflow;
 using IDST.AFlow.Browser.UI.Workflow.Models;
 using IDST.AFlow.Browser.UI.Workflow.Steps;
+using Mapster;
+using MapsterMapper;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -26,6 +30,16 @@ namespace IDST.AFlow.Browser.UI.Services
             services.AddLogging();
             services.AddWorkflow();
             services.AddTransient<HtmlStepNavigate>();
+            services.AddScoped<BrowserForm>();
+
+            //var config = new TypeAdapterConfig();
+            //services.AddSingleton(config);
+            //services.AddScoped<IMapper, ServiceMapper>();
+
+            //services.AddMapster(options =>
+            //{
+            //    options.
+            //});
 
             //services.AddWorkflow(x => x.UseSqlServer(@"Server=.\SQLEXPRESS;Database=WorkflowCore;Trusted_Connection=True;", true, true));
             var serviceProvider = services.BuildServiceProvider();
