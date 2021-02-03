@@ -56,7 +56,7 @@ namespace IDST.AFlow.Browser.UI.Workflow
                 .Output(data => data.PersistentData, step => step.workflowData.PersistentData)
             .Then<HtmlStepCollectWithPagination>()  //Start scraping the results page and navigating to the next set of results
                 .Input(step => step.workflowData, data => data)
-                .Input(step => step.MaxPages, data => 5)
+                .Input(step => step.MaxPages, data => 10)
                 .Input(step => step.NextElemSelector, data => @"document.querySelector('div.paginate-container div[role=""navigation""] a.next_page').href")
                 .Input(step => step.ScarapeJsCode, data => scripts.Find(o => o.Key == 2).Value)
                 .Input(step => step.PaginationDelay, data => 500)

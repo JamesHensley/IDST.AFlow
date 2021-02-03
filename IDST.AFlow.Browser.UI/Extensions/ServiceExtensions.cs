@@ -11,7 +11,7 @@ namespace IDST.AFlow.Browser.UI.Extensions
         public static IServiceCollection AddMapster(this IServiceCollection services, Action<TypeAdapterConfig> options = null)
         {
             var config = TypeAdapterConfig.GlobalSettings;
-            config.Scan(Assembly.GetAssembly(typeof(Program)));
+            config.Scan(AppDomain.CurrentDomain.Load("IDST.AFlow.Browser.UI"));
 
             options?.Invoke(config);
 

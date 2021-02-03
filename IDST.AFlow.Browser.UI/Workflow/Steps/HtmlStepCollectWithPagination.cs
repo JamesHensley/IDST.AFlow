@@ -8,6 +8,9 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using WorkflowCore.Interface;
 using WorkflowCore.Models;
+using Mapster;
+using System.Dynamic;
+using System.Linq;
 
 namespace IDST.AFlow.Browser.UI.Workflow.Steps
 {
@@ -55,18 +58,16 @@ namespace IDST.AFlow.Browser.UI.Workflow.Steps
             int currentPage = 1;
             bool stopScrape = false;
             string currentUrl;
-            List<string> outList = new List<string>();
+            List<object> outList = new List<object>();
+            List<GitHubObj> GitHubObjList = new List<GitHubObj>();
 
             JavascriptResponse response;
             if(PaginationDelay == 0) { PaginationDelay = 100; }
             do
             {
-                response = BrowserMethods.ExecuteJSAsync(workflowData.BrowserHandle, ScarapeJsCode).Result;
+                response = await BrowserMethods.ExecuteJSAsync(workflowData.BrowserHandle, ScarapeJsCode);
                 if (response.Success) {
-                    //var xx = (response.Result as List<object>);
-                    //List<GitHubObj> aa = new List<GitHubObj>();
-                    //xx.ForEach(o => aa.Add(o as GitHubObj));
-                    outList.Add(JsonSerializer.Serialize(response.Result));
+                    outList.AddRange((List<object>)response.Result);
                 } else {
                     stopScrape = true;
                 }
@@ -85,7 +86,9 @@ namespace IDST.AFlow.Browser.UI.Workflow.Steps
             }
             while (currentPage <= MaxPages && stopScrape == false);
 
-            workflowData.PersistentData.Add(new KeyValuePair<string, string>($"{context.Step.Id} - {context.Step.Name}", JsonSerializer.Serialize(outList)));
+            outList.ForEach(o => GitHubObjList.Add((o as ExpandoObject).Adapt<GitHubObj>()));
+
+            workflowData.PersistentData.Add(new KeyValuePair<string, string>($"{context.Step.Id} - {context.Step.Name}", JsonSerializer.Serialize(GitHubObjList)));
             return ExecutionResult.Next();
         }
     }

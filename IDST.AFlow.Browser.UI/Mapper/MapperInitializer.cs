@@ -1,4 +1,5 @@
-﻿using IDST.AFlow.Browser.UI.Workflow.Steps;
+﻿using IDST.AFlow.Browser.UI.Mapper.Resolvers;
+using IDST.AFlow.Browser.UI.Workflow.Steps;
 using Mapster;
 using MapsterMapper;
 using System;
@@ -12,22 +13,11 @@ namespace IDST.AFlow.Browser.UI.Mapper
     {
         public void Register(TypeAdapterConfig config)
         {
-            config.NewConfig<ExpandoObject, GitHubObj>();
-            config.NewConfig<object, GitHubObj>();
+            config.NewConfig<ExpandoObject, GitHubObj>()
+                .Map(destinationMember => destinationMember.description, srcMember => new ResolveExpandoField().Resolve(new Tuple<ExpandoObject, string>(srcMember, "description")))
+                .Map(destinationMember => destinationMember.link, srcMember => new ResolveExpandoField().Resolve(new Tuple<ExpandoObject, string>(srcMember, "link")))
+                .Map(destinationMember => destinationMember.txt, srcMember => new ResolveExpandoField().Resolve(new Tuple<ExpandoObject, string>(srcMember, "txt")));
         }
     }
 
-    public class Mapper : Mapster.c MapsterMapper.Mapper {
-        /*
-        public override void Initialise()
-        {
-            TypeAdapterConfig<Foo, Foo>.NewConfig()
-                .Map(dest => dest.Foos, src => src.Foos ?? new List<Foo>())
-                .Map(dest => dest.FooArray, src => src.FooArray ?? new Foo[0])
-                .Map(dest => dest.Ints, src => src.Ints ?? Enumerable.Empty<int>())
-                .Map(dest => dest.IntArray, src => src.IntArray ?? new int[0])
-                .Compile();
-        }
-        */
-    }
 }
