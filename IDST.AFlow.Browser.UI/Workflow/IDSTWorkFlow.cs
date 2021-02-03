@@ -28,9 +28,9 @@ namespace IDST.AFlow.Browser.UI.Workflow
                     Array.from(document.querySelectorAll('div.codesearch-results ul.repo-list > li.repo-list-item'))
                     .map(d => {
                         return {
-                            txt: d.querySelector('a[data-hydro-click]').innerText,
-                            link: d.querySelector('a[data-hydro-click]').href,
-                            description: d.querySelector('p').innerText
+                            txt: (d.querySelector('a[data-hydro-click]') ? d.querySelector('a[data-hydro-click]').innerText : ''),
+                            link: (d.querySelector('a[data-hydro-click]') ? d.querySelector('a[data-hydro-click]').href : ''),
+                            description: (d.querySelector('p') ? d.querySelector('p').innerText : '')
                         }
                     });
                 ")
@@ -56,10 +56,10 @@ namespace IDST.AFlow.Browser.UI.Workflow
                 .Output(data => data.PersistentData, step => step.workflowData.PersistentData)
             .Then<HtmlStepCollectWithPagination>()  //Start scraping the results page and navigating to the next set of results
                 .Input(step => step.workflowData, data => data)
-                .Input(step => step.MaxPages, data => 2)
+                .Input(step => step.MaxPages, data => 5)
                 .Input(step => step.NextElemSelector, data => @"document.querySelector('div.paginate-container div[role=""navigation""] a.next_page').href")
                 .Input(step => step.ScarapeJsCode, data => scripts.Find(o => o.Key == 2).Value)
-                .Input(step => step.PaginationDelay, data => 750)
+                .Input(step => step.PaginationDelay, data => 500)
                 .Output(data => data.PersistentData, step => step.workflowData.PersistentData)
             .Then<HtmlStepAnalyze>()                // This is just fillter for now
                 .Input(step => step.workflowData, data => data)

@@ -4,12 +4,10 @@ using IDST.AFlow.Browser.UI.WorkflowHelpers;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using WorkflowCore.Interface;
 using WorkflowCore.Models;
-using System.Text.Json;
-using System.Dynamic;
-using MapsterMapper;
 
 namespace IDST.AFlow.Browser.UI.Workflow.Steps
 {
@@ -24,12 +22,11 @@ namespace IDST.AFlow.Browser.UI.Workflow.Steps
 
     public class HtmlStepCollectWithPagination : StepBodyAsync
     {
-        private readonly IMapper mapper;
-
-        public HtmlStepCollectWithPagination(IMapper _mapper)
-        {
-            mapper = _mapper;
-        }
+        //private readonly IMapper mapper;
+        //public HtmlStepCollectWithPagination(IMapper _mapper)
+        //{
+        //    mapper = _mapper;
+        //}
 
         public WorkflowData workflowData { get; set; }
 
@@ -60,16 +57,14 @@ namespace IDST.AFlow.Browser.UI.Workflow.Steps
             string currentUrl;
             List<string> outList = new List<string>();
 
-
             JavascriptResponse response;
             if(PaginationDelay == 0) { PaginationDelay = 100; }
-
             do
             {
                 response = BrowserMethods.ExecuteJSAsync(workflowData.BrowserHandle, ScarapeJsCode).Result;
                 if (response.Success) {
                     //var xx = (response.Result as List<object>);
-                   // List<GitHubObj> aa = new List<GitHubObj>();
+                    //List<GitHubObj> aa = new List<GitHubObj>();
                     //xx.ForEach(o => aa.Add(o as GitHubObj));
                     outList.Add(JsonSerializer.Serialize(response.Result));
                 } else {

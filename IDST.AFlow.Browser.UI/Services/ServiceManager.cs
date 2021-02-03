@@ -29,7 +29,7 @@ namespace IDST.AFlow.Browser.UI.Services
             IServiceCollection services = new ServiceCollection();
             services.AddLogging();
             services.AddWorkflow();
-            services.AddTransient<HtmlStepNavigate>();
+            //services.AddTransient<HtmlStepNavigate>();
             services.AddScoped<BrowserForm>();
 
             //var config = new TypeAdapterConfig();
@@ -63,6 +63,7 @@ namespace IDST.AFlow.Browser.UI.Services
 
         private static void Host_OnStepError(WorkflowInstance workflow, WorkflowStep step, Exception exception)
         {
+            System.Diagnostics.Debugger.Break();
             WorkflowStepError?.Invoke(new WorkflowStepException() {
                 ExtraDetail = "No Extra Detail",
                 workflow = workflow,

@@ -18,6 +18,7 @@ using IDST.AFlow.Browser.UI.Services;
 using IDST.AFlow.Browser.UI.Workflow;
 using IDST.AFlow.Browser.UI.Workflow.Models;
 using IDST.AFlow.Browser.UI.Workflow.Steps;
+using Mapster;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using WorkflowCore.Interface;
@@ -31,10 +32,9 @@ namespace IDST.AFlow.Browser.UI
         public static int Main(string[] args)
         {
             IServiceProvider serviceProvider = ServiceManager.ConfigureServices();
+            //TypeAdapterConfig.GlobalSettings.Default.PreserveReference(true);
 
             Cef.EnableHighDPISupport();
-
-            var browser = new BrowserForm(serviceProvider);
 
             IBrowserProcessHandler browserProcessHandler = new BrowserProcessHandler();
 
@@ -49,6 +49,8 @@ namespace IDST.AFlow.Browser.UI
 
             var form = serviceProvider.GetRequiredService<BrowserForm>();
             Application.Run(form);
+            //var browser = new BrowserForm(serviceProvider);
+            //Application.Run(browser);
 
             return 0;
         }
