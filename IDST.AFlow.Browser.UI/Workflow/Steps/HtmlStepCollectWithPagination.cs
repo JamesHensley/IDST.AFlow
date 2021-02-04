@@ -25,12 +25,6 @@ namespace IDST.AFlow.Browser.UI.Workflow.Steps
 
     public class HtmlStepCollectWithPagination : StepBodyAsync
     {
-        //private readonly IMapper mapper;
-        //public HtmlStepCollectWithPagination(IMapper _mapper)
-        //{
-        //    mapper = _mapper;
-        //}
-
         public WorkflowData workflowData { get; set; }
 
         /// <summary>
@@ -65,14 +59,14 @@ namespace IDST.AFlow.Browser.UI.Workflow.Steps
             if(PaginationDelay == 0) { PaginationDelay = 100; }
             do
             {
-                response = await BrowserMethods.ExecuteJSAsync(workflowData.BrowserHandle, ScarapeJsCode);
+                response = await BrowserMethods.ExecuteJS(workflowData.BrowserHandle, ScarapeJsCode);
                 if (response.Success) {
                     outList.AddRange((List<object>)response.Result);
                 } else {
                     stopScrape = true;
                 }
 
-                response = BrowserMethods.ExecuteJSAsync(workflowData.BrowserHandle, NextElemSelector).Result;
+                response = BrowserMethods.ExecuteJS(workflowData.BrowserHandle, NextElemSelector).Result;
                 if (response.Success)
                 {
                     currentUrl = response.Result.ToString();
