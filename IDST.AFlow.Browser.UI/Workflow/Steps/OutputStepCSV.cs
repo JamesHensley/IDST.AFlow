@@ -27,7 +27,6 @@ namespace IDST.AFlow.Browser.UI.Workflow.Steps
             writer.Flush();
             writer.Close();
 
-            workflowData.PersistentData.Add(new KeyValuePair<string, string>($"{context.Step.Id} {context.Step.Name}", outStr));
             return ExecutionResult.Next();
         }
     }

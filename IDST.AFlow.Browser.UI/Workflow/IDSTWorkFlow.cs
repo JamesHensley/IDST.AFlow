@@ -57,15 +57,8 @@ namespace IDST.AFlow.Browser.UI.Workflow
                 .Input(step => step.NextElemSelector, data => @"document.querySelector('div.paginate-container div[role=""navigation""] a.next_page').href")
                 .Input(step => step.ScarapeJsCode, data => scripts.Find(o => o.Key == 2).Value)
                 .Input(step => step.PaginationDelay, data => 500)
+                .Input(step => step.OutputToFinal, data => true)
                 .Output(data => data.PersistentData, step => step.workflowData.PersistentData)
-            .Then(context => {
-                WorkflowData cData = (context.Workflow.Data as WorkflowData);
-
-                return context.Then<HtmlStepNavigate>()
-
-
-                return ExecutionResult.Next();
-            })
             .Then<HtmlStepNavigate>()
                 .Input(step => step.NavigateUrl, data => "https://www.hotmail.com")
                 .Input(step => step.workflowData, data => data)

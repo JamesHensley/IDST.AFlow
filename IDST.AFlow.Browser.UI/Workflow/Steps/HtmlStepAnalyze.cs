@@ -15,7 +15,7 @@ namespace IDST.AFlow.Browser.UI.Workflow.Steps
 
         public override async Task<ExecutionResult> RunAsync(IStepExecutionContext context)
         {
-            workflowData.PersistentData.ForEach(o => {
+            workflowData.PersistentData.PageData.ForEach(o => {
                 System.Diagnostics.Debug.WriteLine($"Step: {context.Step.Id} {o.Key} {o.Value.Length}");
             });
             return ExecutionResult.Next();

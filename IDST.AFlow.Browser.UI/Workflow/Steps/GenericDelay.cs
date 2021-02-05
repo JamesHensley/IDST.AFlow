@@ -16,8 +16,6 @@ namespace IDST.AFlow.Browser.UI.Workflow.Steps
 
         public override async Task<ExecutionResult> RunAsync(IStepExecutionContext context)
         {
-            workflowData.PersistentData.Add(new KeyValuePair<string, string>($"{context.Step.Id} {context.Step.Name}", DelayMSec.ToString()));
-
             Task.Delay(DelayMSec).Wait();
             return ExecutionResult.Next();
         }

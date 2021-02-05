@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace IDST.AFlow.Browser.UI.Workflow.Models
 {
-    public class WorkflowDefinition
+    public class xWorkflowDefinitionx
     {
         public string PageUrl { get; set; }
 

@@ -2,6 +2,7 @@
 using IDST.AFlow.Browser.UI.WorkflowHelpers;
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Text;
 using System.Threading.Tasks;
 using WorkflowCore.Interface;
@@ -19,7 +20,7 @@ namespace IDST.AFlow.Browser.UI.Workflow.Steps
         {
             var scriptResult = BrowserMethods.ExecuteJS(workflowData.BrowserHandle, ScriptCode).Result;
             if (scriptResult.Success) {
-                workflowData.PersistentData.Add(new KeyValuePair<string, string>($"{context.Step.Id} {context.Step.Name}", scriptResult.Result?.ToString() ?? "No Result"));
+                workflowData.PersistentData.ScriptResult = (ExpandoObject)scriptResult.Result;
             }
             return ExecutionResult.Next();
         }

@@ -651,7 +651,11 @@ namespace IDST.AFlow.Browser.UI.Forms
                 var initialWorkflowData = new WorkflowData()
                 {
                     BrowserHandle = control.BrowserHandle,
-                    PersistentData = new List<KeyValuePair<string, string>>()
+                    PersistentData = new WorkflowPersistentData() {
+                        PageData = new List<KeyValuePair<string, string>>(),
+                        FinalList = new List<System.Dynamic.ExpandoObject>(),
+                        FinalColumns = new List<string>()
+                    }
                 };
 
                 var workflowInstanceId = host.StartWorkflow("IDSTWorkFlow", 1, initialWorkflowData, null).Result;

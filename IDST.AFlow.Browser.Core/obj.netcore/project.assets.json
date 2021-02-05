@@ -709,7 +709,9 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\idstadmin\\.nuget\\packages\\": {}
+    "C:\\Users\\Jim\\.nuget\\packages\\": {},
+    "C:\\Microsoft\\Xamarin\\NuGet\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
@@ -717,23 +719,28 @@
       "projectUniqueName": "C:\\Programming\\Projects\\IDST.AFlow\\IDST.AFlow.Browser.Core\\IDST.AFlow.Browser.Core.csproj",
       "projectName": "IDST.AFlow.Browser.Core",
       "projectPath": "C:\\Programming\\Projects\\IDST.AFlow\\IDST.AFlow.Browser.Core\\IDST.AFlow.Browser.Core.csproj",
-      "packagesPath": "C:\\Users\\idstadmin\\.nuget\\packages\\",
+      "packagesPath": "C:\\Users\\Jim\\.nuget\\packages\\",
       "outputPath": "C:\\Programming\\Projects\\IDST.AFlow\\IDST.AFlow.Browser.Core\\obj.netcore\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Microsoft\\Xamarin\\NuGet\\",
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+      ],
       "configFilePaths": [
-        "C:\\Users\\idstadmin\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\Jim\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.1"
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Users\\Jim\\AppData\\Local\\Esri\\NuGet": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "netcoreapp3.1": {
-          "targetAlias": "netcoreapp3.1",
           "projectReferences": {}
         }
       },
@@ -745,7 +752,6 @@
     },
     "frameworks": {
       "netcoreapp3.1": {
-        "targetAlias": "netcoreapp3.1",
         "dependencies": {
           "CefSharp.Common": {
             "target": "Package",
@@ -778,7 +784,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.102\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.201\\RuntimeIdentifierGraph.json"
       }
     }
   }

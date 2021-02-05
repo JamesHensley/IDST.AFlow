@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using WorkflowCore.Interface;
 using WorkflowCore.Models;
 using Mapster;
+using MapsterMapper;
+
 using System.Dynamic;
 using System.Linq;
 
@@ -43,12 +45,15 @@ namespace IDST.AFlow.Browser.UI.Workflow.Steps
         /// </summary>
         public string ClientModelName { get; set; }
 
+        public Boolean OutputToFinal = false;
+
         public override async Task<ExecutionResult> RunAsync(IStepExecutionContext context)
         {
             int currentPage = 1;
             bool stopScrape = false;
             string currentUrl;
             List<object> outList = new List<object>();
+            List<ExpandoObject> eoList = new List<ExpandoObject>();
 
             JavascriptResponse response;
             if(PaginationDelay == 0) { PaginationDelay = 100; }
@@ -57,6 +62,11 @@ namespace IDST.AFlow.Browser.UI.Workflow.Steps
                 response = await BrowserMethods.ExecuteJS(workflowData.BrowserHandle, ScarapeJsCode);
                 if (response.Success) {
                     outList.AddRange((List<object>)response.Result);
+                    eoList.AddRange(from kx in outList select kx as ExpandoObject);
+                    //outList.ForEach(o => {
+                    //    eoList.Add(o as ExpandoObject);
+                    //});
+                    //eoList.AddRange((List<ExpandoObject>)response.Result);
                 } else {
                     stopScrape = true;
                 }
@@ -75,7 +85,19 @@ namespace IDST.AFlow.Browser.UI.Workflow.Steps
             }
             while (currentPage <= MaxPages && stopScrape == false);
 
-            workflowData.PersistentData.Add(new KeyValuePair<string, string>($"{context.Step.Id} - {context.Step.Name}", JsonSerializer.Serialize(outList)));
+            if (OutputToFinal) {
+                eoList.ForEach(o => {
+                    foreach (string colName in ((IDictionary<string, object>)o).Keys) {
+                        if (!workflowData.PersistentData.FinalColumns.Contains(colName)) {
+                            workflowData.PersistentData.FinalColumns.Add(colName);
+                        }
+                    }
+                });
+                //(from kvp in outList select kvp.Key).Distinct().ToList()
+            }
+
+            //workflowData.PersistentData.FinalList.Add(new KeyValuePair<string, string>($"{context.Step.Id} - {context.Step.Name}", JsonSerializer.Serialize(eoList)));
+            workflowData.PersistentData.FinalList.AddRange(eoList);
             return ExecutionResult.Next();
         }
     }
