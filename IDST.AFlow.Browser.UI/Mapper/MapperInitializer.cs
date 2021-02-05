@@ -13,10 +13,12 @@ namespace IDST.AFlow.Browser.UI.Mapper
     {
         public void Register(TypeAdapterConfig config)
         {
+            /*
             config.NewConfig<ExpandoObject, GitHubObj>()
                 .Map(destinationMember => destinationMember.description, srcMember => new ResolveExpandoField().Resolve(new Tuple<ExpandoObject, string>(srcMember, "description")))
                 .Map(destinationMember => destinationMember.link, srcMember => new ResolveExpandoField().Resolve(new Tuple<ExpandoObject, string>(srcMember, "link")))
                 .Map(destinationMember => destinationMember.txt, srcMember => new ResolveExpandoField().Resolve(new Tuple<ExpandoObject, string>(srcMember, "txt")));
+            */
         }
     }
 

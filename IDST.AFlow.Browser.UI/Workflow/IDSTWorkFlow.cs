@@ -1,9 +1,6 @@
 ﻿using IDST.AFlow.Browser.UI.Workflow.Models;
 using IDST.AFlow.Browser.UI.Workflow.Steps;
-using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 using WorkflowCore.Interface;
 using WorkflowCore.Models;
 
@@ -18,8 +15,6 @@ namespace IDST.AFlow.Browser.UI.Workflow
 
         public void Build(IWorkflowBuilder<WorkflowData> builder)
         {
-            WorkflowEngine.GetClientModel("GitHubModel");
-
             var scripts = new List<KeyValuePair<int, string>>() {
                 new KeyValuePair<int, string>(1, @"
                     var domE = document.querySelector(""input[type='text'].header-search-input"");
@@ -58,10 +53,22 @@ namespace IDST.AFlow.Browser.UI.Workflow
                 .Output(data => data.PersistentData, step => step.workflowData.PersistentData)
             .Then<HtmlStepCollectWithPagination>()  //Start scraping the results page and navigating to the next set of results
                 .Input(step => step.workflowData, data => data)
-                .Input(step => step.MaxPages, data => 3)
+                .Input(step => step.MaxPages, data => 1)
                 .Input(step => step.NextElemSelector, data => @"document.querySelector('div.paginate-container div[role=""navigation""] a.next_page').href")
                 .Input(step => step.ScarapeJsCode, data => scripts.Find(o => o.Key == 2).Value)
                 .Input(step => step.PaginationDelay, data => 500)
+                .Output(data => data.PersistentData, step => step.workflowData.PersistentData)
+            .Then(context => {
+                WorkflowData cData = (context.Workflow.Data as WorkflowData);
+
+                return context.Then<HtmlStepNavigate>()
+
+
+                return ExecutionResult.Next();
+            })
+            .Then<HtmlStepNavigate>()
+                .Input(step => step.NavigateUrl, data => "https://www.hotmail.com")
+                .Input(step => step.workflowData, data => data)
                 .Output(data => data.PersistentData, step => step.workflowData.PersistentData)
             .Then<OutputStepCSV>()                  // Write all exported data to a text file
                 .Input(step => step.workflowData, data => data)

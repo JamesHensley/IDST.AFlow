@@ -14,15 +14,6 @@ using System.Linq;
 
 namespace IDST.AFlow.Browser.UI.Workflow.Steps
 {
-    public class xxGitHubObj {
-        public string txt { get; set; }
-
-        public string link { get; set; }
-
-        public string description { get; set; }
-
-    }
-
     public class HtmlStepCollectWithPagination : StepBodyAsync
     {
         public WorkflowData workflowData { get; set; }
