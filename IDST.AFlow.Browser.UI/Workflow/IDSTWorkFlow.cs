@@ -18,6 +18,8 @@ namespace IDST.AFlow.Browser.UI.Workflow
 
         public void Build(IWorkflowBuilder<WorkflowData> builder)
         {
+            WorkflowEngine.GetClientModel("GitHubModel");
+
             var scripts = new List<KeyValuePair<int, string>>() {
                 new KeyValuePair<int, string>(1, @"
                     var domE = document.querySelector(""input[type='text'].header-search-input"");

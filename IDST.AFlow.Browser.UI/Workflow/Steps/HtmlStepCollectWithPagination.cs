@@ -14,7 +14,7 @@ using System.Linq;
 
 namespace IDST.AFlow.Browser.UI.Workflow.Steps
 {
-    public class GitHubObj {
+    public class xxGitHubObj {
         public string txt { get; set; }
 
         public string link { get; set; }
@@ -47,13 +47,17 @@ namespace IDST.AFlow.Browser.UI.Workflow.Steps
         /// </summary>
         public int PaginationDelay { get; set; }
 
+        /// <summary>
+        /// Used to identify the model which should be used in the return data
+        /// </summary>
+        public string ClientModelName { get; set; }
+
         public override async Task<ExecutionResult> RunAsync(IStepExecutionContext context)
         {
             int currentPage = 1;
             bool stopScrape = false;
             string currentUrl;
             List<object> outList = new List<object>();
-            List<GitHubObj> GitHubObjList = new List<GitHubObj>();
 
             JavascriptResponse response;
             if(PaginationDelay == 0) { PaginationDelay = 100; }
@@ -80,9 +84,7 @@ namespace IDST.AFlow.Browser.UI.Workflow.Steps
             }
             while (currentPage <= MaxPages && stopScrape == false);
 
-            outList.ForEach(o => GitHubObjList.Add((o as ExpandoObject).Adapt<GitHubObj>()));
-
-            workflowData.PersistentData.Add(new KeyValuePair<string, string>($"{context.Step.Id} - {context.Step.Name}", JsonSerializer.Serialize(GitHubObjList)));
+            workflowData.PersistentData.Add(new KeyValuePair<string, string>($"{context.Step.Id} - {context.Step.Name}", JsonSerializer.Serialize(outList)));
             return ExecutionResult.Next();
         }
     }
